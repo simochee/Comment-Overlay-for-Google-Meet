@@ -34,7 +34,7 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
 
 	if (tabId !== sender.tab?.id) return;
 
-	fetch("http://localhost:9001", {
+	fetch("http://localhost:9043", {
 		method: "post",
 		headers: {
 			"Content-Type": "application/json",

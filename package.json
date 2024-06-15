@@ -1,4 +1,5 @@
 {
+	"name": "comment-overlay-for-google-meet",
 	"private": true,
 	"workspaces": [
 		"packages/*"

@@ -1,0 +1,13 @@
+{
+	"name": "app",
+	"version": "1.0.0",
+	"private": true,
+	"main": "main.js",
+	"scripts": {
+		"dev": "electron ."
+	},
+	"dependencies": {
+		"electron": "^31.0.1",
+		"h3": "^1.11.1"
+	}
+}
