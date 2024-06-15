@@ -25,6 +25,10 @@ browser.action.onClicked.addListener(async (tab) => {
 	}
 });
 
+browser.runtime.onInstalled.addListener(() => {
+	browser.storage.local.clear();
+});
+
 browser.runtime.onMessage.addListener(async (message, sender) => {
 	const tabId = await getActiveTabId();
 
