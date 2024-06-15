@@ -13,7 +13,7 @@ const BASE_MANIFEST = {
 		96: "icons/icon-96.png",
 		128: "icons/icon-128.png",
 	},
-	permissions: ["activeTab", "scripting"],
+	permissions: ["activeTab", "scripting", "storage"],
 	content_scripts: [
 		{
 			run_at: "document_idle",

@@ -37,8 +37,6 @@ const sendComment = (el: HTMLElement) => {
 
 	if (!text) return;
 
-	console.log("send text", text);
-
 	browser.runtime.sendMessage({
 		type: "comment",
 		text,
@@ -47,6 +45,8 @@ const sendComment = (el: HTMLElement) => {
 
 const observeComments = async () => {
 	const parent = await waitFor("[jsname=xySENc]");
+
+	console.log("connected to comments");
 
 	let disconnect = () => {};
 
@@ -75,16 +75,12 @@ const observeComments = async () => {
 const observeAudiences = async () => {
 	const parent = await waitFor("[jsname=jrQDbd]");
 
+	console.log("connected to audiences");
+
 	observeChildren(parent, async (mutation) => {
 		const el = mutation.addedNodes[0] || mutation.removedNodes[0];
 
 		if (!(el instanceof HTMLElement)) return;
-
-		console.log({
-			type: mutation.addedNodes[0] ? "join" : "leave",
-			avatar: el.querySelector("img")?.getAttribute("src"),
-			name: el.querySelector(".zWGUib")?.textContent,
-		});
 
 		browser.runtime.sendMessage({
 			type: mutation.addedNodes[0] ? "join" : "leave",
