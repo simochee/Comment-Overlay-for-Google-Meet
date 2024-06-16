@@ -1,0 +1,23 @@
+{
+	"name": "comment-overlay-for-google-meet",
+	"private": true,
+	"workspaces": [
+		"packages/*"
+	],
+	"scripts": {
+		"dev": "turbo dev",
+		"postinstall": "lefthook install"
+	},
+	"dependencies": {
+		"sort-package-json": "^2.10.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.8.1",
+		"lefthook": "^1.6.16",
+		"turbo": "^2.0.4"
+	},
+	"packageManager": "npm@10.8.1+sha256.b8807aebb9656758e2872fa6e7c564b506aa2faa9297439a478d471d2fe32483",
+	"volta": {
+		"node": "22.3.0"
+	}
+}
