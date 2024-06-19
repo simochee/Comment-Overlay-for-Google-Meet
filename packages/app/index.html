@@ -59,10 +59,44 @@
 .comment[data-row="5"] {
   top: 34%;
 }
+
+#reactions {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  width: 280px;
+  height: 65vh;
+  font-size: 64px;
+}
+
+@keyframes comment {
+  0% {
+    transform: translate3d(0, 0, 0);
+    top: 100%;
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate3d(0, -100%, 0);
+    top: 0;
+    opacity: 0;
+  }
+}
+
+.reaction {
+  position: absolute;
+  animation: comment 4s linear forwards;
+  aspect-ratio: 1;
+  display: block;
+}
     </style>
   </head>
   <body>
-    <div id="canvas"></div>
+    <div id="comments"></div>
+    <div id="reactions"></div>
     <script src="./renderer.js"></script>
   </body>
 </html>
