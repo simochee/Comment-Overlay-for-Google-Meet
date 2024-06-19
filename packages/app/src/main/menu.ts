@@ -1,5 +1,12 @@
 import { join } from "node:path";
-import { type BrowserWindow, Menu, Tray, nativeImage, screen } from "electron";
+import {
+	type BrowserWindow,
+	Menu,
+	Tray,
+	app,
+	nativeImage,
+	screen,
+} from "electron";
 import { moveToScreen } from "./screen";
 
 export const createMenu = (window: BrowserWindow) => {
@@ -16,9 +23,35 @@ export const createMenu = (window: BrowserWindow) => {
 			})),
 		},
 		{
-			label: "Move to Primary Screen",
+			label: "Help",
+			submenu: [
+				{
+					label: "Developer Tools",
+					click() {
+						window.webContents.openDevTools({ mode: "detach" });
+					},
+				},
+				{
+					label: "Move to Primary Screen",
+					click() {
+						moveToScreen(0, window);
+					},
+				},
+				{
+					label: "Relaunch",
+					click() {
+						app.relaunch({
+							args: process.argv.slice(1).concat(["--relaunch"]),
+						});
+						app.exit(0);
+					},
+				},
+			],
+		},
+		{
+			label: "Quit",
 			click() {
-				moveToScreen(0, window);
+				app.quit();
 			},
 		},
 	]);

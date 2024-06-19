@@ -10,8 +10,11 @@
 		"build": "electron-vite build"
 	},
 	"dependencies": {
+		"@hono/node-server": "^1.11.3",
 		"electron-reload": "^2.0.0-alpha.1",
-		"h3": "^1.11.1"
+		"h3": "^1.11.1",
+		"hono": "^4.4.7",
+		"reset-css": "^5.0.2"
 	},
 	"devDependencies": {
 		"@electron-toolkit/tsconfig": "^1.0.1",
