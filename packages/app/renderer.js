@@ -5,7 +5,7 @@ const lastCommentAt = [];
 const addNewComment = async (text) => {
 	await new Promise((resolve) => requestAnimationFrame(resolve));
 
-	const canvas = document.getElementById("canvas");
+	const canvas = document.getElementById("comments");
 	const p = document.createElement("p");
 	p.textContent = text;
 
@@ -32,10 +32,31 @@ const addNewComment = async (text) => {
 	canvas.appendChild(p);
 };
 
+const addReaction = async (src, left, size) => {
+	console.log("add reaction", src, left);
+
+	const canvas = document.getElementById("reactions");
+
+	const img = document.createElement("img");
+	img.src = src;
+	img.classList.add("reaction");
+	img.style.left = left;
+	img.style.width = size;
+
+	canvas.appendChild(img);
+
+	img.addEventListener("animationend", () => img.remove());
+};
+
 window.events.on((values) => {
 	switch (values.type) {
 		case "comment": {
 			addNewComment(values.text);
+			break;
+		}
+		case "reaction": {
+			addReaction(values.src, values.left, values.size);
+			break;
 		}
 	}
 });

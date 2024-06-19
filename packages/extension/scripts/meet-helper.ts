@@ -72,6 +72,31 @@ const observeComments = async () => {
 	});
 };
 
+const observeReactions = async () => {
+	const parent = await waitFor("[jscontroller=e9oqqf] [jsname=YQuObe]");
+
+	console.log("connected to reactions");
+
+	observeChildren(parent, async (mutation) => {
+		const el = mutation.addedNodes[0];
+
+		if (!(el instanceof HTMLElement)) return;
+
+		const payload = {
+			type: "reaction",
+			src: el
+				.querySelector("img")
+				?.getAttribute("src")
+				?.replace(/72\.png$/, "512.webp"),
+			name: el.querySelector("div > div")?.textContent,
+			left: el.style.left,
+			size: el.querySelector("div")?.style.fontSize,
+		};
+
+		browser.runtime.sendMessage(payload);
+	});
+};
+
 const observeAudiences = async () => {
 	const parent = await waitFor("[jsname=jrQDbd]");
 
@@ -91,4 +116,5 @@ const observeAudiences = async () => {
 };
 
 observeComments();
+observeReactions();
 observeAudiences();
