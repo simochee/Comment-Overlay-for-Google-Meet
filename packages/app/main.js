@@ -16,6 +16,10 @@ const {
 	readBody,
 } = require("h3");
 
+require("electron-reload")(__dirname, {
+	electron: join(__dirname, "..", "..", "node_modules", ".bin", "electron"),
+});
+
 /** @type {import('electron').BrowserWindow} */
 let overlay;
 let screenIndex = 0;
