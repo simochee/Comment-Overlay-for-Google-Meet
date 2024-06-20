@@ -8,7 +8,7 @@ app.whenReady().then(() => {
 	app.requestSingleInstanceLock();
 
 	const overlayWindow = createWindow();
-	const server = createServer(9902);
+	const server = createServer(9943);
 
 	createMenu(overlayWindow);
 
