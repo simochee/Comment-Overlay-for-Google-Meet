@@ -12,8 +12,8 @@ app.whenReady().then(() => {
 
 	createMenu(overlayWindow);
 
-	server.on("meet_event", (type, payload) => {
-		overlayWindow.webContents.send(type, payload);
+	server.on("meet:event", (type, payload) => {
+		overlayWindow.webContents.send(`meet:${type}`, payload);
 	});
 
 	app.on("quit", () => server.emit("dispose"));

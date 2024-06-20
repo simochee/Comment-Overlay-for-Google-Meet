@@ -10,7 +10,7 @@
 	"scripts": {
 		"dev": "wxt",
 		"build": "wxt build",
-		"zip": "xwt zip",
-		"postinstall": "xwt prepare"
+		"zip": "wxt zip",
+		"postinstall": "wxt prepare"
 	}
 }

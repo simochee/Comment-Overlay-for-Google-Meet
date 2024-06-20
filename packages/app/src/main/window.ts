@@ -10,6 +10,10 @@ export const createWindow = () => {
 		focusable: false,
 		frame: false,
 		hasShadow: false,
+		webPreferences: {
+			preload: join(__dirname, "../preload/index.mjs"),
+			sandbox: false,
+		},
 	});
 
 	overlayWindow.setIgnoreMouseEvents(true);

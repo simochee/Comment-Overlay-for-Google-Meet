@@ -58,7 +58,7 @@ export const createMenu = (window: BrowserWindow) => {
 
 	const tray = new Tray(
 		nativeImage.createFromPath(
-			join(__dirname, "../../../extension/public/icons/icon-32.png"),
+			join(__dirname, "../../../extension/public/icon@16w.png"),
 		),
 	);
 

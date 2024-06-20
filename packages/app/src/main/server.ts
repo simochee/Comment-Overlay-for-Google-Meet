@@ -1,24 +1,24 @@
 import { EventEmitter } from "node:events";
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
-import { type InferInput, object, parse, string } from "valibot";
+import { type InferInput, object, optional, parse, string } from "valibot";
 
 const app = new Hono();
 
 const AddCommentSchema = object({ text: string() });
 const AddReactionSchema = object({
 	src: string(),
-	left: string(),
-	fontSize: string(),
+	left: optional(string()),
+	fontSize: optional(string()),
 });
 
 export type MeetEvents =
-	| ["add_comment", InferInput<typeof AddCommentSchema>]
-	| ["add_reaction", InferInput<typeof AddReactionSchema>];
+	| ["comment", InferInput<typeof AddCommentSchema>]
+	| ["reaction", InferInput<typeof AddReactionSchema>];
 
 type EventMap = {
 	dispose: [];
-	meet_event: MeetEvents;
+	"meet:event": MeetEvents;
 };
 
 export const createServer = (port: number) => {
@@ -27,16 +27,18 @@ export const createServer = (port: number) => {
 	app.post("/v1/event/:type", async (c) => {
 		try {
 			const { type } = c.req.param();
-			const body = await c.req.parseBody();
+			const body = await c.req.json();
+
+			console.log(type, body);
 
 			switch (type) {
-				case "add_comment": {
-					ee.emit("meet_event", type, parse(AddCommentSchema, body));
+				case "comment": {
+					ee.emit("meet:event", type, parse(AddCommentSchema, body));
 
 					break;
 				}
-				case "add_reaction": {
-					ee.emit("meet_event", type, parse(AddReactionSchema, body));
+				case "reaction": {
+					ee.emit("meet:event", type, parse(AddReactionSchema, body));
 
 					break;
 				}

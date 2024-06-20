@@ -43,6 +43,8 @@ const sendReaction = (el: Node) => {
 export const observeComments = async () => {
 	const parent = await waitFor("[jsname=xySENc]");
 
+	console.log("Find comment area");
+
 	let disconnect = () => {};
 
 	observeChildren(parent, async (mutation) => {
@@ -66,10 +68,14 @@ export const observeComments = async () => {
 
 /** リアクションを監視する */
 export const observeReactions = async () => {
-	const parent = await waitFor("[jsname=YQuObe]");
+	const parent = await waitFor("[jscontroller=e9oqqf] [jsname=YQuObe]");
+
+	console.log("Find reaction area");
 
 	observeChildren(parent, async (mutation) => {
 		const [el] = mutation.addedNodes;
+
+		console.log(el instanceof HTMLElement && el.outerHTML);
 
 		sendReaction(el);
 	});
