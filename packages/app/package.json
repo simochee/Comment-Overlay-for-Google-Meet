@@ -14,9 +14,11 @@
 		"electron-reload": "^2.0.0-alpha.1",
 		"h3": "^1.11.1",
 		"hono": "^4.4.7",
-		"reset-css": "^5.0.2"
+		"reset-css": "^5.0.2",
+		"valibot": "^0.33.2"
 	},
 	"devDependencies": {
+		"@electron-toolkit/preload": "^3.0.1",
 		"@electron-toolkit/tsconfig": "^1.0.1",
 		"@electron-toolkit/utils": "^3.0.0",
 		"@types/node": "^20.14.5",
