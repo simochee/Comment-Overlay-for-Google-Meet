@@ -3,14 +3,14 @@ import type { Options } from "conf/dist/source";
 import type { BrowserWindow } from "electron";
 import Store from "electron-store";
 
-type StoreSchema = {
+export type SettingsSchema = {
 	"comment.enabled": boolean;
 	"comment.font.family": string;
 	"comment.font.size": string;
 	"reaction.enabled": boolean;
 };
 
-const options: Options<StoreSchema> = {
+const options: Options<SettingsSchema> = {
 	schema: {
 		"comment.enabled": {
 			type: "boolean",
@@ -34,8 +34,9 @@ const options: Options<StoreSchema> = {
 };
 
 // @ts-expect-error
-export const settings: Conf<StoreSchema> & Pick<Store, "openInEditor"> =
-	new Store<StoreSchema>(options);
+export const settings: Conf<SettingsSchema> & Pick<Store, "openInEditor"> =
+	// @ts-expect-error
+	new Store<SettingsSchema>(options);
 
 export const attachListenersSettingsDidChange = (window: BrowserWindow) => {
 	settings.onDidAnyChange((newValue) => {
