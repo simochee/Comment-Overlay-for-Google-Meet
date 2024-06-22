@@ -1,3 +1,4 @@
+import { CommentOverlay } from "./components/CommentOverlay";
 import { useSettings } from "./hooks/useSettings";
 
 export const App = () => {
@@ -7,6 +8,10 @@ export const App = () => {
 		<>
 			<p>hello</p>
 			{settings.reaction.enabled && <p>Reaction enabled.</p>}
+			<CommentOverlay
+				fontFamily={settings.comment.font.family}
+				fontSize={settings.comment.font.size}
+			/>
 		</>
 	);
 };
