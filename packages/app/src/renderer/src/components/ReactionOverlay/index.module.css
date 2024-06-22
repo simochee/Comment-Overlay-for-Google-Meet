@@ -1,0 +1,32 @@
+@keyframes reaction-fadeout {
+  0% {
+    transform: translate3d(0, 100%, 0);
+    top: 100%;
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate3d(0, -100%, 0);
+    top: 0;
+    opacity: 0;
+  }
+}
+
+.wrapper {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  width: 280px;
+  height: 640px;
+  font-size: 48px;
+}
+
+.reaction {
+  position: absolute;
+  animation: reaction-fadeout 4s linear forwards;
+  aspect-ratio: 1;
+  display: block;
+}
