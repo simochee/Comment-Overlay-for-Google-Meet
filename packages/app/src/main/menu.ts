@@ -8,8 +8,9 @@ import {
 	screen,
 } from "electron";
 import { moveToScreen } from "./screen";
+import { settings } from "./settings";
 
-export const createMenu = (window: BrowserWindow) => {
+export const createMenu = async (window: BrowserWindow) => {
 	const menu = Menu.buildFromTemplate([
 		{
 			label: "Overlay Screen",
@@ -21,6 +22,12 @@ export const createMenu = (window: BrowserWindow) => {
 					moveToScreen(index, window);
 				},
 			})),
+		},
+		{
+			label: "Settings",
+			async click() {
+				await settings.openInEditor();
+			},
 		},
 		{
 			label: "Help",

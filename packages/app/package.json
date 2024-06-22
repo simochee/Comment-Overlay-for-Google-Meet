@@ -1,6 +1,6 @@
 {
-	"name": "app",
-	"version": "1.0.0",
+	"name": "net.simochee.comment-overlay-for-google-meet",
+	"version": "0.0.1",
 	"private": true,
 	"type": "module",
 	"main": "./out/main/index.js",
@@ -11,17 +11,22 @@
 	},
 	"dependencies": {
 		"@hono/node-server": "^1.11.3",
+		"conf": "^13.0.1",
 		"electron-reload": "^2.0.0-alpha.1",
+		"electron-store": "^8.2.0",
+		"get-system-fonts": "^2.0.2",
 		"h3": "^1.11.1",
 		"hono": "^4.4.7",
 		"reset-css": "^5.0.2",
 		"valibot": "^0.33.2"
 	},
 	"devDependencies": {
-		"@repo/types": "workspace:*",
 		"@electron-toolkit/preload": "^3.0.1",
 		"@electron-toolkit/tsconfig": "^1.0.1",
 		"@electron-toolkit/utils": "^3.0.0",
+		"@repo/types": "workspace:*",
+		"@types/conf": "^3.0.0",
+		"@types/electron-store": "^3.2.0",
 		"@types/node": "^20.14.5",
 		"electron": "^31.0.1",
 		"electron-vite": "^2.2.0",
