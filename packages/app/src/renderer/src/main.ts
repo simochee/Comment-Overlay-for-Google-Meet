@@ -11,3 +11,7 @@ electron.ipcRenderer.on("meet:comment", (_, payload) => {
 electron.ipcRenderer.on("meet:reaction", (_, payload) => {
 	console.log(payload);
 });
+
+electron.ipcRenderer.on("settings:changed", (_, settings) => {
+	console.log(settings);
+});

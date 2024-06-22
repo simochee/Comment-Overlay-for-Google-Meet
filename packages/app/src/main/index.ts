@@ -1,6 +1,7 @@
 import { app } from "electron";
 import { createMenu } from "./menu";
 import { createServer } from "./server";
+import { attachListenersSettingsDidChange } from "./settings";
 import { createWindow } from "./window";
 
 app.whenReady().then(() => {
@@ -11,6 +12,8 @@ app.whenReady().then(() => {
 	const server = createServer(9943);
 
 	createMenu(overlayWindow);
+
+	attachListenersSettingsDidChange(overlayWindow);
 
 	server.on("meet:event", (type, payload) => {
 		overlayWindow.webContents.send(`meet:${type}`, payload);
