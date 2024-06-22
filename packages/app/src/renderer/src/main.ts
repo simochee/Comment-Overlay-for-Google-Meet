@@ -6,6 +6,8 @@ import type { SettingsSchema } from "../../main/settings";
 const electron: ElectronAPI = (window as any).electron;
 const initialSettings = (window as any).initialSettings as SettingsSchema;
 
+console.log(initialSettings);
+
 electron.ipcRenderer.on("meet:comment", (_, payload) => {
 	console.log(payload);
 });
