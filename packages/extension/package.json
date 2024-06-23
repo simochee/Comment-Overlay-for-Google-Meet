@@ -3,17 +3,14 @@
 	"version": "1.0.0",
 	"private": true,
 	"type": "module",
-	"scripts": {
-		"dev": "vite",
-		"build": "vite build"
-	},
 	"devDependencies": {
-		"@tsconfig/vite-react": "^3.0.2",
-		"@types/webextension-polyfill": "^0.10.7",
-		"vite": "^5.3.1",
-		"vite-plugin-web-extension": "^4.1.4"
+		"@repo/types": "workspace:*",
+		"wxt": "^0.18.7"
 	},
-	"dependencies": {
-		"webextension-polyfill": "^0.12.0"
+	"scripts": {
+		"dev": "wxt",
+		"build": "wxt build",
+		"zip": "wxt zip",
+		"postinstall": "wxt prepare"
 	}
 }
