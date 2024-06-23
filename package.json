@@ -5,6 +5,7 @@
 		"packages/*"
 	],
 	"scripts": {
+		"build": "turbo build",
 		"dev": "turbo dev",
 		"postinstall": "lefthook install"
 	},
