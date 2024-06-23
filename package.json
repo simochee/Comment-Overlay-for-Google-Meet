@@ -1,10 +1,8 @@
 {
 	"name": "comment-overlay-for-google-meet",
 	"private": true,
-	"workspaces": [
-		"packages/*"
-	],
 	"scripts": {
+		"build": "turbo build",
 		"dev": "turbo dev",
 		"postinstall": "lefthook install"
 	},
