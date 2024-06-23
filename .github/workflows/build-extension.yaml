@@ -32,5 +32,5 @@ jobs:
       - run: nr build -F extension -- -b ${{ matrix.browser }}
       - uses: actions/upload-artifact@v4
         with:
-          name: extension-${{ matrix.browser }}-${{ github.ref_name }}-${{ github.sha }}
+          name: extension-${{ matrix.browser }}-${{ github.sha }}
           path: packages/extension/.output/*
