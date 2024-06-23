@@ -1,6 +1,6 @@
 import { electron } from "@renderer/utils/electron";
 import type { HelperCommentPayload } from "@repo/types/src";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 // @ts-expect-error
 import styles from "./index.module.css";
 
@@ -71,10 +71,14 @@ export const CommentOverlay = ({ fontFamily, fontSize }: Props) => {
 						top: `${lane * 2}em`,
 					}}
 					onAnimationEnd={() => deleteComment(id)}
-					dangerouslySetInnerHTML={{
-						__html: text.replace(/\n/g, "<br />"),
-					}}
-				/>
+				>
+					{text.split("\n").map((line, i) => (
+						<Fragment key={i}>
+							{line}
+							<br />
+						</Fragment>
+					))}
+				</p>
 			))}
 		</div>
 	);

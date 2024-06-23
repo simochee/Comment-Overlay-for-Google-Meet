@@ -17,7 +17,7 @@ export const createWindow = () => {
 	});
 
 	overlayWindow.setIgnoreMouseEvents(true);
-	overlayWindow.setAlwaysOnTop(true, "screen-saver", 1);
+	overlayWindow.setAlwaysOnTop(true, "modal-panel", 1);
 
 	moveToScreen(0, overlayWindow);
 
