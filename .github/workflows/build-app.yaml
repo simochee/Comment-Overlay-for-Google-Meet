@@ -1,0 +1,33 @@
+name: Build App
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+
+env:
+  APP_ID: net.simochee.comment-overlay-for-google-meet
+
+jobs:
+  build-app:
+    strategy:
+      matrix:
+        os:
+          - ubuntu
+          - windows
+          - macos
+      fail-fast: false
+    runs-on: ${{ matrix.os }}-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build -F ${{ env.APP_ID }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ matrix.os }}-${{ github.ref_name }}-${{ github.sha }}
+          path: packages/app/out
