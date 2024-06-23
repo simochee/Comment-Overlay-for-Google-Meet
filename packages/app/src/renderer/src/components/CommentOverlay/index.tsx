@@ -8,12 +8,13 @@ type Comment = { id: number; lane: number; ts: number } & HelperCommentPayload;
 
 type Props = {
 	fontFamily: string;
+	fontWeight: string;
 	fontSize: string;
 };
 
 const MAX_LANES = 5;
 
-export const CommentOverlay = ({ fontFamily, fontSize }: Props) => {
+export const CommentOverlay = ({ fontFamily, fontWeight, fontSize }: Props) => {
 	const [comments, setComments] = useState<Comment[]>([]);
 
 	const deleteComment = (id: number) => {
@@ -62,7 +63,10 @@ export const CommentOverlay = ({ fontFamily, fontSize }: Props) => {
 	}, []);
 
 	return (
-		<div className={styles.wrapper} style={{ fontFamily, fontSize }}>
+		<div
+			className={styles.wrapper}
+			style={{ fontFamily, fontWeight, fontSize }}
+		>
 			{comments.map(({ id, lane, text }) => (
 				<p
 					key={id}

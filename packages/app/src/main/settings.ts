@@ -6,8 +6,10 @@ import Store from "electron-store";
 export type SettingsSchema = {
 	"comment.enabled": boolean;
 	"comment.font.family": string;
+	"comment.font.weight": string;
 	"comment.font.size": string;
 	"reaction.enabled": boolean;
+	"window.border.enabled": boolean;
 };
 
 const options: Options<SettingsSchema> = {
@@ -20,6 +22,10 @@ const options: Options<SettingsSchema> = {
 			type: "string",
 			default: "Arial",
 		},
+		"comment.font.weight": {
+			type: "string",
+			default: "normal",
+		},
 		"comment.font.size": {
 			type: "string",
 			default: "12px",
@@ -27,6 +33,10 @@ const options: Options<SettingsSchema> = {
 		"reaction.enabled": {
 			type: "boolean",
 			default: true,
+		},
+		"window.border.enabled": {
+			type: "boolean",
+			default: false,
 		},
 	},
 	watch: true,
