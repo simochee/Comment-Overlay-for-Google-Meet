@@ -39,8 +39,9 @@ jobs:
         with:
           node-version-file: package.json
       - run: corepack enable
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build -F app
+      - run: npm install -g @antfu/ni
+      - run: nci
+      - run: nr build -F app
       - run: |-
           npx @electron/packager \
             packages/app \
