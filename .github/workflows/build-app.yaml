@@ -43,8 +43,7 @@ jobs:
       - run: nci
       - run: nr build -F app
       - run: |-
-          @electron/packager \
-            packages/app \
+          nr package \
             --platform=${{ matrix.platform }} \
             --arch=${{ matrix.arch }} \
             --overwrite \

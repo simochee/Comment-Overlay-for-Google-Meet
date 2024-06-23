@@ -4,13 +4,15 @@
 	"scripts": {
 		"build": "turbo build",
 		"dev": "turbo dev",
-		"postinstall": "lefthook install"
+		"postinstall": "lefthook install",
+		"package": "@electron/packager packages/app"
 	},
 	"dependencies": {
 		"sort-package-json": "^2.10.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.8.1",
+		"@electron/packager": "^18.3.3",
 		"lefthook": "^1.6.16",
 		"turbo": "^2.0.4"
 	},
