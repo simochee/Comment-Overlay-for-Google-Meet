@@ -4,8 +4,7 @@
 	"scripts": {
 		"build": "turbo build",
 		"dev": "turbo dev",
-		"postinstall": "lefthook install",
-		"package": "@electron/packager packages/app"
+		"postinstall": "lefthook install"
 	},
 	"dependencies": {
 		"sort-package-json": "^2.10.0"
