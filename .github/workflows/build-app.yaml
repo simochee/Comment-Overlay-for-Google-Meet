@@ -16,16 +16,7 @@ jobs:
     strategy:
       matrix:
         os: [windows, macos]
-        arch: [arm64, x64]
       fail-fast: false
-    env:
-      BUILD_OUT_DIR: release-builds
-      PLATFORM: |-
-        ${{ fromJSON('{
-          "ubuntu": "linux",
-          "windows": "win",
-          "macos": "mac"
-        }')[matrix.os] }}
     runs-on: ${{ matrix.os }}-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,12 +27,8 @@ jobs:
       - run: npm install -g @antfu/ni
       - run: nci
       - run: nr build -F app
-      - run: |-
-          nlx electron-builder \
-            --project packages/app \
-            --${{ env.PLATFORM }} \
-            --${{ matrix.arch }}
+      - run: nlx electron-builder --project packages/app --${{ matrix.os }}
       - uses: actions/upload-artifact@v4
         with:
           name: app-${{ matrix.os }}-${{ github.sha }}
-          path: ${{ env.BUILD_OUT_DIR }}
+          path: packages/app/build
