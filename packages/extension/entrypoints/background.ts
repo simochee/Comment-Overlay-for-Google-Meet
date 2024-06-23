@@ -1,6 +1,8 @@
 import browser from "webextension-polyfill";
 import { defineBackground } from "wxt/sandbox";
 
+const browserAction = browser.action || browser.browserAction;
+
 const getActiveTabId = async () => {
 	const values = await browser.storage.local.get("tabId");
 
@@ -13,16 +15,17 @@ export default defineBackground({
 		// ストレージの状態に連動してアイコンバッジを更新する
 		browser.storage.local.onChanged.addListener((values) => {
 			if ("tabId" in values && values.tabId.newValue) {
-				browser.action.setBadgeText({ text: "●" });
-				browser.action.setBadgeTextColor({ color: "white" });
-				browser.action.setBadgeBackgroundColor({ color: "red" });
+				browserAction.setBadgeText({ text: "●" });
+				browserAction.setBadgeTextColor({ color: "white" });
+				browserAction.setBadgeBackgroundColor({ color: "red" });
 			} else {
-				browser.action.setBadgeText({ text: "" });
+				browserAction.setBadgeText({ text: "" });
 			}
 		});
 
 		// アイコンクリック時にタブIDを保存する
-		browser.action.onClicked.addListener(async (tab) => {
+
+		browserAction.onClicked.addListener(async (tab) => {
 			const activeTabId = await getActiveTabId();
 
 			if (!tab.url) return;
