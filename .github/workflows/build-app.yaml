@@ -4,19 +4,18 @@ on:
   push:
     branches:
       - develop
+    paths:
+      - .github/workflows/build-app.yaml
+      - packages/app/**
+      - packages/types/**
+      - pnpm-lock.yaml
   pull_request:
-
-env:
-  APP_ID: net.simochee.comment-overlay-for-google-meet
 
 jobs:
   build-app:
     strategy:
       matrix:
-        os:
-          - ubuntu
-          - windows
-          - macos
+        os: [windows, macos]
       fail-fast: false
     runs-on: ${{ matrix.os }}-latest
     steps:
@@ -25,9 +24,11 @@ jobs:
         with:
           node-version-file: package.json
       - run: corepack enable
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build -F ${{ env.APP_ID }}
+      - run: npm install -g @antfu/ni
+      - run: nci
+      - run: nr build -F app
+      - run: nlx electron-builder --project packages/app --${{ matrix.os }}
       - uses: actions/upload-artifact@v4
         with:
           name: app-${{ matrix.os }}-${{ github.sha }}
-          path: packages/app/dist
+          path: packages/app/build
