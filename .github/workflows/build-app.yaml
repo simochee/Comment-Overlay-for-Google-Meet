@@ -39,11 +39,11 @@ jobs:
         with:
           node-version-file: package.json
       - run: corepack enable
-      - run: npm install -g @antfu/ni
+      - run: npm install -g @antfu/ni @electron/packager
       - run: nci
       - run: nr build -F app
       - run: |-
-          npx @electron/packager \
+          @electron/packager \
             packages/app \
             --platform=${{ matrix.platform }} \
             --arch=${{ matrix.arch }} \
