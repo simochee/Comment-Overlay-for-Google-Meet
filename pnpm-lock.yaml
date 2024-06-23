@@ -99,6 +99,10 @@ importers:
         version: 5.3.1(@types/node@20.14.6)(lightningcss@1.25.1)
 
   packages/extension:
+    dependencies:
+      webextension-polyfill:
+        specifier: ^0.12.0
+        version: 0.12.0
     devDependencies:
       '@repo/types':
         specifier: workspace:*
@@ -2924,6 +2928,9 @@ packages:
 
   webextension-polyfill@0.10.0:
     resolution: {integrity: sha512-c5s35LgVa5tFaHhrZDnr3FpQpjj1BB+RXhLTYUxGqBVN460HkbM8TBtEqdXWbpTKfzwCcjAZVF7zXCYSKtcp9g==}
+
+  webextension-polyfill@0.12.0:
+    resolution: {integrity: sha512-97TBmpoWJEE+3nFBQ4VocyCdLKfw54rFaJ6EVQYLBCXqCIpLSZkwGgASpv4oPt9gdKCJ80RJlcmNzNn008Ag6Q==}
 
   webpack-sources@3.2.3:
     resolution: {integrity: sha512-/DyMEOrDgLKKIG0fmvtz+4dUX/3Ghozwgm6iPp8KRhvn+eQf9+Q7GWxVNMk3+uCPWfdXYC4ExGBckIXdFEfH1w==}
@@ -5805,6 +5812,8 @@ snapshots:
       - utf-8-validate
 
   webextension-polyfill@0.10.0: {}
+
+  webextension-polyfill@0.12.0: {}
 
   webpack-sources@3.2.3: {}
 
