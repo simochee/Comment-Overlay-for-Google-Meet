@@ -33,4 +33,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: extension-${{ matrix.browser }}-${{ github.ref_name }}-${{ github.sha }}
-          path: packages/extension/dist/*
+          path: packages/extension/.output/*
