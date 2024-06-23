@@ -1,0 +1,35 @@
+name: Build Browser Extension
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+  pull_request:
+    paths:
+      - .github/workflows/build-extension.yaml
+      - packages/extension/**
+      - packages/types/**
+      - pnpm-lock.yaml
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        browser:
+          - chrome
+          - firefox
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build -F extension -- -b ${{ matrix.browser }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: extension-${{ matrix.browser }}-${{ github.ref_name }}-${{ github.sha }}
+          path: packages/extension/.output/*
