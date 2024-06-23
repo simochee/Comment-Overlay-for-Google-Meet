@@ -39,7 +39,7 @@ jobs:
         with:
           node-version-file: package.json
       - run: corepack enable
-      - run: npm install -g @antfu/ni @electron/packager
+      - run: npm install -g @antfu/ni
       - run: nci
       - run: nr build -F app
       - run: |-
