@@ -30,6 +30,9 @@ importers:
       '@hono/node-server':
         specifier: ^1.11.3
         version: 1.11.4
+      ajv:
+        specifier: ^8.16.0
+        version: 8.16.0
       conf:
         specifier: ^13.0.1
         version: 13.0.1
