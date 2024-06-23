@@ -1,6 +1,7 @@
 import { EventEmitter } from "node:events";
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { type InferInput, object, optional, parse, string } from "valibot";
 
 const app = new Hono();
@@ -23,6 +24,8 @@ type EventMap = {
 
 export const createServer = (port: number) => {
 	const ee = new EventEmitter<EventMap>();
+
+	app.use(cors());
 
 	app.post("/v1/event/:type", async (c) => {
 		try {
