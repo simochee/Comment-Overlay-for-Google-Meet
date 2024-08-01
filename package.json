@@ -2,12 +2,15 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"postinstall": "lefthook install"
+		"build": "wxt build",
+		"dev": "wxt",
+		"postinstall": "lefthook install && wxt prepare"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.8.3",
 		"lefthook": "^1.7.11",
-		"sort-package-json": "^2.10.0"
+		"sort-package-json": "^2.10.0",
+		"wxt": "^0.19.2"
 	},
 	"packageManager": "pnpm@9.6.0+sha256.dae0f7e822c56b20979bb5965e3b73b8bdabb6b8b8ef121da6d857508599ca35",
 	"volta": {
