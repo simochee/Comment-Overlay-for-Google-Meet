@@ -1,14 +1,14 @@
 {
+	"version": "0.0.0",
 	"private": true,
 	"type": "module",
 	"scripts": {
 		"build": "wxt build",
-		"dev": "dotenv -e .env.local -- wxt",
+		"dev": "wxt",
 		"postinstall": "lefthook install && wxt prepare"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.8.3",
-		"dotenv-cli": "^7.4.2",
 		"lefthook": "^1.7.11",
 		"sort-package-json": "^2.10.0",
 		"wxt": "^0.19.2"

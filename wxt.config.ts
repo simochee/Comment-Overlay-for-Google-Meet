@@ -8,7 +8,7 @@ export default defineConfig({
 	manifest: {
 		name: "Comment Overlay for Google Meet",
 		permissions: [],
+		host_permissions: [],
 		action: {},
 	},
-	runner: { startUrls },
 });
