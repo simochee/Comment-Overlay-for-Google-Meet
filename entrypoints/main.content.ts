@@ -1,6 +1,7 @@
 import { ScreenSharingCanvas } from "@/utils/canvas";
 import { defineContentScript } from "wxt/sandbox";
 import { CommentStore, observeComments } from "~/utils/comment";
+import { COMMENT_OVERLAY_ENABLED_FLAG_NAME } from "~/utils/config";
 
 export default defineContentScript({
 	runAt: "document_idle",
@@ -22,6 +23,9 @@ export default defineContentScript({
 		});
 
 		screenSharingCanvas.onTick((canvas) => {
+			// @ts-expect-error
+			if (!window[COMMENT_OVERLAY_ENABLED_FLAG_NAME]) return;
+
 			const ctx = canvas.getContext("2d");
 
 			if (!ctx) return;

@@ -55,3 +55,6 @@ export const COMMENT_LEADING_OPTIONS = [
 	{ key: 1.625, label: "Relaxed" },
 	{ key: 2, label: "Loose" },
 ] as const satisfies IVarSelectOption[];
+
+export const COMMENT_OVERLAY_ENABLED_FLAG_NAME =
+	"__wxt__comment_overlay_enabled__";
