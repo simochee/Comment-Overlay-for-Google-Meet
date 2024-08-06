@@ -1,15 +1,17 @@
 import type { IVarSelectOption } from "react-var-ui";
 import { storage } from "wxt/storage";
 
+export type InferKey<T extends IVarSelectOption[]> = T[number]["key"];
+
 export type ConfigSchema = {
 	fontSize: number;
 	fontFamily: string;
 	fontColor: string;
-	fontWeight: number;
+	fontWeight: InferKey<typeof FONT_WEIGHT_OPTIONS>;
 	fontStrokeWidth: number;
 	fontStrokeColor: string;
-	commentSpeed: number;
-	commentLeading: number;
+	commentSpeed: InferKey<typeof COMMENT_SPEED_OPTIONS>;
+	commentLeading: InferKey<typeof COMMENT_LEADING_OPTIONS>;
 };
 
 export const initialConfig: ConfigSchema = {
@@ -27,7 +29,7 @@ export const configStorage = storage.defineItem<ConfigSchema>("local:config", {
 	version: 1,
 });
 
-export const FONT_WEIGHT_OPTIONS: IVarSelectOption[] = [
+export const FONT_WEIGHT_OPTIONS = [
 	{ key: 100, label: "100 - Thin" },
 	{ key: 200, label: "200 - Extra Light" },
 	{ key: 300, label: "300 - Light" },
@@ -37,19 +39,19 @@ export const FONT_WEIGHT_OPTIONS: IVarSelectOption[] = [
 	{ key: 700, label: "700 - Bold" },
 	{ key: 800, label: "800 - Extra Bold" },
 	{ key: 900, label: "900 - Black" },
-] as const;
+] as const satisfies IVarSelectOption[];
 
-export const COMMENT_SPEED_OPTIONS: IVarSelectOption[] = [
+export const COMMENT_SPEED_OPTIONS = [
 	{ key: 0.2, label: "Slow" },
 	{ key: 0.375, label: "Normal" },
 	{ key: 0.5, label: "Fast" },
-] as const;
+] as const satisfies IVarSelectOption[];
 
-export const COMMENT_LEADING_OPTIONS: IVarSelectOption[] = [
+export const COMMENT_LEADING_OPTIONS = [
 	{ key: 1, label: "None", value: 1 },
 	{ key: 1.25, label: "Tight" },
 	{ key: 1.375, label: "Snug" },
 	{ key: 1.5, label: "Normal" },
 	{ key: 1.625, label: "Relaxed" },
 	{ key: 2, label: "Loose" },
-] as const;
+] as const satisfies IVarSelectOption[];
