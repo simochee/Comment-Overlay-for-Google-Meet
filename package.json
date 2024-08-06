@@ -5,7 +5,8 @@
 	"scripts": {
 		"build": "wxt build",
 		"dev": "wxt",
-		"postinstall": "lefthook install && wxt prepare"
+		"postinstall": "lefthook install && wxt prepare",
+		"zip": "wxt zip"
 	},
 	"dependencies": {
 		"@antfu/utils": "^0.7.10",
