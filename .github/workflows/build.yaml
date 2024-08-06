@@ -24,7 +24,7 @@ jobs:
       - name: build for firefox
         run: pnpm zip --debug --browser firefox
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
-          name: artifact_${{ github.sha }}
+          name: artifact-${{ github.sha }}
           path: .output
