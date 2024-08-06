@@ -60,7 +60,7 @@ export const App = () => {
 				<VarToggle path="enableByDefault" label="Enable by Default" />
 			</VarCategory>
 			<VarCategory label="Font" collapsible>
-				<VarNumber path="fontSize" label="Size" min={1} max={256} />
+				<VarNumber path="fontSize" label="Size" min={1} />
 				<VarString path="fontFamily" label="Family" />
 				<VarColor path="fontColor" label="Color" alpha />
 				<VarSelect
@@ -77,6 +77,7 @@ export const App = () => {
 				<VarColor path="fontStrokeColor" label="Stroke Color" alpha />
 			</VarCategory>
 			<VarCategory label="Comment" collapsible>
+				<VarNumber path="commentOffsetTop" label="Offset Top" min={0} />
 				<VarSelect
 					path="commentSpeed"
 					label="Speed"

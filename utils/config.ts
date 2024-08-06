@@ -11,6 +11,7 @@ export type ConfigSchema = {
 	fontWeight: InferKey<typeof FONT_WEIGHT_OPTIONS>;
 	fontStrokeWidth: number;
 	fontStrokeColor: string;
+	commentOffsetTop: number;
 	commentSpeed: InferKey<typeof COMMENT_SPEED_OPTIONS>;
 	commentLeading: InferKey<typeof COMMENT_LEADING_OPTIONS>;
 };
@@ -23,6 +24,7 @@ export const initialConfig: ConfigSchema = {
 	fontWeight: 400,
 	fontStrokeWidth: 6,
 	fontStrokeColor: "#000000ff",
+	commentOffsetTop: 100,
 	commentSpeed: 0.375,
 	commentLeading: 1.5,
 };

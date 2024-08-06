@@ -44,7 +44,9 @@ export default defineContentScript({
 				const progress = delta / canvas.width;
 
 				const x = canvas.width - delta - progress * ctx.measureText(text).width;
-				const y = line * config.fontSize * config.commentLeading + 100;
+				const y =
+					line * config.fontSize * config.commentLeading +
+					config.commentOffsetTop;
 
 				if (progress > 1) {
 					commentStore.remove(id);
