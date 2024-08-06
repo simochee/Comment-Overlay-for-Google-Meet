@@ -1,12 +1,14 @@
-type OnTickHandler = (canvas: HTMLCanvasElement) => void;
+import { IDENTITY_DATA_KEY, IDENTITY_DATA_VALUE } from "./canvas";
 
 /**
  * getDisplayMedia を拡張する
  */
-export const extendDisplayMedia = () => {
+export const extendDisplayMedia = async () => {
 	const canvas = document.createElement("canvas");
-	const video = document.createElement("video");
+	canvas.setAttribute(IDENTITY_DATA_KEY, IDENTITY_DATA_VALUE);
 
+	const video = document.createElement("video");
+	video.setAttribute(IDENTITY_DATA_KEY, IDENTITY_DATA_VALUE);
 	video.autoplay = true;
 
 	const getDisplayMedia = navigator.mediaDevices.getDisplayMedia.bind(
@@ -30,36 +32,8 @@ export const extendDisplayMedia = () => {
 		return canvas.captureStream(30);
 	};
 
-	const onTickHandlers: OnTickHandler[] = [];
+	const body = await waitFor("body");
 
-	const onTick = (callback: OnTickHandler) => {
-		onTickHandlers.push(callback);
-
-		return () => {
-			onTickHandlers.splice(onTickHandlers.indexOf(callback), 1);
-		};
-	};
-
-	const streamCanvas = () => {
-		canvas.width = video.videoWidth;
-		canvas.height = video.videoHeight;
-
-		if (
-			canvas.width > 0 &&
-			canvas.height > 0 &&
-			ctx instanceof CanvasRenderingContext2D
-		) {
-			ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-			for (const handler of onTickHandlers) {
-				handler(canvas);
-			}
-		}
-
-		requestAnimationFrame(streamCanvas);
-	};
-
-	streamCanvas();
-
-	return { onTick };
+	body.appendChild(canvas);
+	body.appendChild(video);
 };

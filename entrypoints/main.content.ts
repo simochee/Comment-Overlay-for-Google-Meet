@@ -1,0 +1,50 @@
+import { ScreenSharingCanvas } from "@/utils/canvas";
+import { defineContentScript } from "wxt/sandbox";
+import { CommentStore, observeComments } from "~/utils/comment";
+
+export default defineContentScript({
+	runAt: "document_idle",
+	matches: ["https://meet.google.com/*"],
+	async main() {
+		const screenSharingCanvas = new ScreenSharingCanvas();
+
+		screenSharingCanvas.stream();
+
+		const commentStore = new CommentStore();
+		let config = await configStorage.getValue();
+
+		observeComments((comment) => {
+			commentStore.add(comment);
+		});
+
+		configStorage.watch((newConfig) => {
+			config = newConfig;
+		});
+
+		screenSharingCanvas.onTick((canvas) => {
+			const ctx = canvas.getContext("2d");
+
+			if (!ctx) return;
+
+			ctx.font = `${config.fontWeight} ${config.fontSize}px ${config.fontFamily}`;
+			ctx.fillStyle = config.fontColor;
+			ctx.strokeStyle = config.fontStrokeColor;
+			ctx.lineWidth = config.fontStrokeWidth;
+
+			const now = Date.now();
+			for (const { id, timestamp, line, text } of commentStore.values) {
+				const delta = ((now - timestamp) / config.fontSize) * 24;
+				const progress = delta / canvas.width;
+
+				const x = canvas.width - delta - progress * ctx.measureText(text).width;
+
+				if (progress > 1) {
+					console.log("delete!");
+					commentStore.remove(id);
+				} else {
+					ctx.fillText(text, x, line * config.fontSize * 1.1 + 100);
+				}
+			}
+		});
+	},
+});

@@ -6,4 +6,9 @@ export default defineConfig({
 		permissions: ["storage"],
 	},
 	modules: ["@wxt-dev/module-react"],
+	vite: () => ({
+		build: {
+			minify: false,
+		},
+	}),
 });

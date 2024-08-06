@@ -56,6 +56,21 @@ export const App = () => {
 				<VarNumber path="fontSize" label="Size" min={1} max={256} />
 				<VarString path="fontFamily" label="Family" />
 				<VarColor path="fontColor" label="Color" alpha />
+				<VarSelect
+					path="fontWeight"
+					label="Weight"
+					options={[
+						{ key: 100, label: "100 - Thin" },
+						{ key: 200, label: "200 - Extra Light" },
+						{ key: 300, label: "300 - Light" },
+						{ key: 400, label: "400 - Normal" },
+						{ key: 500, label: "500 - Medium" },
+						{ key: 600, label: "600 - Semi Bold" },
+						{ key: 700, label: "700 - Bold" },
+						{ key: 800, label: "800 - Extra Bold" },
+						{ key: 900, label: "900 - Black" },
+					]}
+				/>
 				<VarNumber
 					path="fontStrokeWidth"
 					label="Stroke Width"
