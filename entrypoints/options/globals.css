@@ -1,0 +1,22 @@
+@keyframes fit-height {
+  from {
+    min-height: 9999px;
+  }
+
+  to {
+    min-height: 100%;
+  }
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  animation: fit-height .1s forwards;
+}
+
+body {
+  background: #11111a;
+}
