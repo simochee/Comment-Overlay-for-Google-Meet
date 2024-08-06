@@ -10,7 +10,10 @@ import {
 	VarUI,
 } from "react-var-ui";
 import {
+	COMMENT_LEADING_OPTIONS,
+	COMMENT_SPEED_OPTIONS,
 	type ConfigSchema,
+	FONT_WEIGHT_OPTIONS,
 	configStorage,
 	initialConfig,
 } from "~/utils/config";
@@ -59,17 +62,7 @@ export const App = () => {
 				<VarSelect
 					path="fontWeight"
 					label="Weight"
-					options={[
-						{ key: 100, label: "100 - Thin" },
-						{ key: 200, label: "200 - Extra Light" },
-						{ key: 300, label: "300 - Light" },
-						{ key: 400, label: "400 - Normal" },
-						{ key: 500, label: "500 - Medium" },
-						{ key: 600, label: "600 - Semi Bold" },
-						{ key: 700, label: "700 - Bold" },
-						{ key: 800, label: "800 - Extra Bold" },
-						{ key: 900, label: "900 - Black" },
-					]}
+					options={FONT_WEIGHT_OPTIONS}
 				/>
 				<VarNumber
 					path="fontStrokeWidth"
@@ -83,20 +76,12 @@ export const App = () => {
 				<VarSelect
 					path="commentSpeed"
 					label="Speed"
-					options={[
-						{ key: "slow", label: "Slow" },
-						{ key: "normal", label: "Normal" },
-						{ key: "fast", label: "Fast" },
-					]}
+					options={COMMENT_SPEED_OPTIONS}
 				/>
 				<VarSelect
 					path="commentLeading"
 					label="Leading"
-					options={[
-						{ key: "tight", label: "Tight" },
-						{ key: "normal", label: "Normal" },
-						{ key: "loose", label: "Loose" },
-					]}
+					options={COMMENT_LEADING_OPTIONS}
 				/>
 			</VarCategory>
 		</VarUI>

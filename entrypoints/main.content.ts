@@ -33,16 +33,20 @@ export default defineContentScript({
 
 			const now = Date.now();
 			for (const { id, timestamp, line, text } of commentStore.values) {
-				const delta = ((now - timestamp) / config.fontSize) * 24;
+				const delta =
+					((now - timestamp) / config.fontSize) *
+					config.fontSize *
+					config.commentSpeed;
 				const progress = delta / canvas.width;
 
 				const x = canvas.width - delta - progress * ctx.measureText(text).width;
+				const y = line * config.fontSize * config.commentLeading + 100;
 
 				if (progress > 1) {
-					console.log("delete!");
 					commentStore.remove(id);
 				} else {
-					ctx.fillText(text, x, line * config.fontSize * 1.1 + 100);
+					ctx.strokeText(text, x, y);
+					ctx.fillText(text, x, y);
 				}
 			}
 		});

@@ -1,14 +1,11 @@
-import { IDENTITY_DATA_KEY, IDENTITY_DATA_VALUE } from "./canvas";
+import { createHiddenElement } from "./canvas";
 
 /**
  * getDisplayMedia を拡張する
  */
 export const extendDisplayMedia = async () => {
-	const canvas = document.createElement("canvas");
-	canvas.setAttribute(IDENTITY_DATA_KEY, IDENTITY_DATA_VALUE);
-
-	const video = document.createElement("video");
-	video.setAttribute(IDENTITY_DATA_KEY, IDENTITY_DATA_VALUE);
+	const canvas = createHiddenElement("canvas");
+	const video = createHiddenElement("video");
 	video.autoplay = true;
 
 	const getDisplayMedia = navigator.mediaDevices.getDisplayMedia.bind(
@@ -31,9 +28,4 @@ export const extendDisplayMedia = async () => {
 
 		return canvas.captureStream(30);
 	};
-
-	const body = await waitFor("body");
-
-	body.appendChild(canvas);
-	body.appendChild(video);
 };

@@ -1,7 +1,41 @@
 type OnTickHandler = (canvas: HTMLCanvasElement) => void;
 
-export const IDENTITY_DATA_KEY = "data-wxt-identity";
-export const IDENTITY_DATA_VALUE = "comment-overlay-for-google-meet";
+export const IDENTITY_ATTRIBUTE = {
+	NAME: "data-wxt-id",
+	VALUE: "RBt3TDw0UvyXiLz7NxaPU",
+};
+
+export const createHiddenElement = <K extends keyof HTMLElementTagNameMap>(
+	tagName: K,
+) => {
+	const element = document.createElement(tagName);
+
+	element.setAttribute(IDENTITY_ATTRIBUTE.NAME, IDENTITY_ATTRIBUTE.VALUE);
+	element.style.width = "0";
+	element.style.height = "0";
+	element.style.overflow = "hidden";
+	element.style.position = "absolute";
+
+	document.body.appendChild(element);
+
+	return element;
+};
+
+export const getHiddenElement = <K extends keyof HTMLElementTagNameMap>(
+	tagName: K,
+) => {
+	const elements = document.getElementsByTagName(tagName);
+
+	for (const element of elements) {
+		if (
+			element.getAttribute(IDENTITY_ATTRIBUTE.NAME) === IDENTITY_ATTRIBUTE.VALUE
+		) {
+			return element;
+		}
+	}
+
+	return null;
+};
 
 /**
  * canvas に video のキャプションを描画する
@@ -9,43 +43,30 @@ export const IDENTITY_DATA_VALUE = "comment-overlay-for-google-meet";
 export class ScreenSharingCanvas {
 	private onTickHandlers: OnTickHandler[] = [];
 
-	private get canvas() {
-		const canvas = document.querySelector(
-			`canvas[${IDENTITY_DATA_KEY}="${IDENTITY_DATA_VALUE}"]`,
-		);
-
-		return canvas instanceof HTMLCanvasElement ? canvas : null;
-	}
-
-	private get video() {
-		const video = document.querySelector(
-			`video[${IDENTITY_DATA_KEY}="${IDENTITY_DATA_VALUE}"]`,
-		);
-
-		return video instanceof HTMLVideoElement ? video : null;
-	}
-
 	public async stream() {
-		if (this.canvas && this.video) {
-			const ctx = this.canvas.getContext("2d");
+		requestAnimationFrame(() => this.stream());
 
-			this.canvas.width = this.video.videoWidth;
-			this.canvas.height = this.video.videoHeight;
+		const canvas = getHiddenElement("canvas");
+		const video = getHiddenElement("video");
 
-			if (
-				this.canvas.width > 0 &&
-				this.canvas.height > 0 &&
-				ctx instanceof CanvasRenderingContext2D
-			) {
-				ctx.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
+		if (!canvas || !video) return;
 
-				for (const handler of this.onTickHandlers) {
-					handler(this.canvas);
-				}
+		const ctx = canvas.getContext("2d");
+
+		canvas.width = video.videoWidth;
+		canvas.height = video.videoHeight;
+
+		if (
+			canvas.width > 0 &&
+			canvas.height > 0 &&
+			ctx instanceof CanvasRenderingContext2D
+		) {
+			ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+			for (const handler of this.onTickHandlers) {
+				handler(canvas);
 			}
 		}
-
-		requestAnimationFrame(() => this.stream());
 	}
 
 	public onTick(callback: OnTickHandler) {

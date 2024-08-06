@@ -1,7 +1,11 @@
 import { observeChildren, waitFor } from "./dom";
 
 /** コメントオブジェクト */
-export type ParsedComment = { text: string; timestamp: number };
+export type ParsedComment = {
+	text: string;
+	author: string | null;
+	timestamp: number;
+};
 /** コールバックメソッド */
 type Callback = (comment: ParsedComment) => void | Promise<void>;
 
@@ -10,19 +14,32 @@ type Callback = (comment: ParsedComment) => void | Promise<void>;
  */
 const parseComment = (el: HTMLElement): ParsedComment | undefined => {
 	const text = el.querySelector("[jscontroller=RrV5Ic]")?.textContent ?? null;
+	const author = el.querySelector(".poVWob")?.textContent ?? null;
 
 	if (!text) return;
 
-	return { text, timestamp: Date.now() };
+	return { text, author, timestamp: Date.now() };
 };
 
 /**
  * コールバックを発火する
  */
-const dispatchCallback = (el: HTMLElement, callback: Callback) => {
+const dispatchCallback = (
+	el: HTMLElement,
+	callback: Callback,
+	author?: string | null,
+) => {
 	const comment = parseComment(el);
 
-	if (comment) callback(comment);
+	if (comment) {
+		if (author) {
+			comment.author = author;
+		}
+
+		callback(comment);
+	}
+
+	return comment;
 };
 
 /**
@@ -36,7 +53,7 @@ export const observeComments = async (callback: Callback) => {
 	observeChildren(parent, async ({ addedNodes: [el] }) => {
 		if (!(el instanceof HTMLElement)) return;
 
-		dispatchCallback(el, callback);
+		const comment = dispatchCallback(el, callback);
 
 		disconnect();
 		disconnect = observeChildren(
@@ -44,7 +61,7 @@ export const observeComments = async (callback: Callback) => {
 			async ({ addedNodes: [el] }) => {
 				if (!(el instanceof HTMLElement)) return;
 
-				dispatchCallback(el, callback);
+				dispatchCallback(el, callback, comment?.author);
 			},
 		);
 	});
