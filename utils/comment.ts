@@ -1,7 +1,7 @@
 import { observeChildren, waitFor } from "./dom";
 
 /** コメントオブジェクト */
-type ParsedComment = { text: string };
+export type ParsedComment = { text: string; timestamp: number };
 /** コールバックメソッド */
 type Callback = (comment: ParsedComment) => void | Promise<void>;
 
@@ -13,7 +13,7 @@ const parseComment = (el: HTMLElement): ParsedComment | undefined => {
 
 	if (!text) return;
 
-	return { text };
+	return { text, timestamp: Date.now() };
 };
 
 /**
@@ -49,3 +49,42 @@ export const observeComments = async (callback: Callback) => {
 		);
 	});
 };
+
+/** 表示中のコメントを管理するクラス */
+export class CommentStore {
+	private comments: (ParsedComment & { id: number; line: number })[] = [];
+
+	constructor(private maxLines = 5) {}
+
+	public get values() {
+		return this.comments;
+	}
+
+	public add(comment: ParsedComment) {
+		const now = Date.now();
+		const linesTimestamp = Array.from({ length: this.maxLines }, (_, index) =>
+			Math.max(
+				0,
+				...this.comments
+					.filter(({ line }) => line === index)
+					.map(({ timestamp }) => timestamp),
+			),
+		)
+			.map((timestamp, line) => ({ timestamp, line }))
+			.toSorted((a, b) => b.timestamp - a.timestamp);
+		const id = Math.max(0, ...this.comments.map(({ id }) => id)) + 1;
+
+		for (const { line, timestamp } of linesTimestamp) {
+			if (now - timestamp > 1_200) {
+				this.comments.push({ ...comment, id, line });
+				return;
+			}
+		}
+
+		this.comments.push({ ...comment, id, line: 0 });
+	}
+
+	public remove(id: number) {
+		this.comments = this.comments.filter((comment) => comment.id !== id);
+	}
+}
