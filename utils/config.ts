@@ -4,6 +4,7 @@ import { storage } from "wxt/storage";
 export type InferKey<T extends IVarSelectOption[]> = T[number]["key"];
 
 export type ConfigSchema = {
+	enableByDefault: boolean;
 	fontSize: number;
 	fontFamily: string;
 	fontColor: string;
@@ -15,6 +16,7 @@ export type ConfigSchema = {
 };
 
 export const initialConfig: ConfigSchema = {
+	enableByDefault: false,
 	fontSize: 64,
 	fontFamily: "sans-serif",
 	fontColor: "#ffffffff",
@@ -42,9 +44,11 @@ export const FONT_WEIGHT_OPTIONS = [
 ] as const satisfies IVarSelectOption[];
 
 export const COMMENT_SPEED_OPTIONS = [
+	{ key: 0.1, label: "Too Slow" },
 	{ key: 0.2, label: "Slow" },
 	{ key: 0.375, label: "Normal" },
 	{ key: 0.5, label: "Fast" },
+	{ key: 0.75, label: "Too Fast" },
 ] as const satisfies IVarSelectOption[];
 
 export const COMMENT_LEADING_OPTIONS = [

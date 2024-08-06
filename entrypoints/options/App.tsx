@@ -7,6 +7,7 @@ import {
 	VarNumber,
 	VarSelect,
 	VarString,
+	VarToggle,
 	VarUI,
 } from "react-var-ui";
 import {
@@ -55,6 +56,9 @@ export const App = () => {
 				disabled={pending || changed}
 				onClick={() => handleSubmit(values)}
 			/>
+			<VarCategory label="General" collapsible>
+				<VarToggle path="enableByDefault" label="Enable by Default" />
+			</VarCategory>
 			<VarCategory label="Font" collapsible>
 				<VarNumber path="fontSize" label="Size" min={1} max={256} />
 				<VarString path="fontFamily" label="Family" />

@@ -9,6 +9,11 @@ export default defineContentScript({
 	runAt: "document_idle",
 	matches: ["https://meet.google.com/*"],
 	async main() {
+		const { enableByDefault } = await configStorage.getValue();
+
+		// @ts-expect-error
+		window[COMMENT_OVERLAY_ENABLED_FLAG_NAME] = enableByDefault;
+
 		const parser = new DOMParser();
 		const wrapper = await waitFor('[jscontroller="gBurof"]');
 
@@ -17,7 +22,7 @@ export default defineContentScript({
 <div class="BReBS IZY82c">
   <div aria-hidden="true" class="o6rdsc pFy0uf">コメントをオーバーレイ</div>
   <div class="eBlXUe-H9tDt  OAFLMe udb6Ob-ibL1re">
-    <button type="button" role="switch" class="eBlXUe-scr2fc ${CLASS_NAME.INACTIVE}" aria-checked="false" aria-label="コメントをオーバーレイ">
+    <button type="button" role="switch" class="eBlXUe-scr2fc ${enableByDefault ? CLASS_NAME.ACTIVE : CLASS_NAME.INACTIVE}" aria-checked="false" aria-label="コメントをオーバーレイ">
       <div class="eBlXUe-l6JLsf">
         <div class="eBlXUe-uMhiad-haAclf">
           <span class="RBHQF-ksKsZd eBlXUe-Qsb3yd" data-unbounded="true" jscontroller="LBaJxb" jsname="m9ZlFb"></span>
