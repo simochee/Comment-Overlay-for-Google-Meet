@@ -89,11 +89,19 @@ export class CommentStore {
 		)
 			.map((timestamp, line) => ({ timestamp, line }))
 			.toSorted((a, b) => b.timestamp - a.timestamp);
-		const id = Math.max(-1, ...this.comments.map(({ id }) => id)) + 1;
+		const id = Math.max(0, ...this.comments.map(({ id }) => id)) + 1;
 
 		for (const { line, timestamp } of linesTimestamp) {
-			if (now - timestamp > 1_200) {
-				this.comments.push({ ...comment, id, line });
+			console.log(line, now - timestamp);
+
+			if (now - timestamp < 1_200) {
+				let newLine = line + 1;
+
+				if (newLine >= this.maxLines) {
+					newLine = 0;
+				}
+
+				this.comments.push({ ...comment, id, line: newLine });
 				return;
 			}
 		}
@@ -111,8 +119,8 @@ export class CommentStore {
 		textHeight: number,
 		leading: number,
 	): number {
-		const canvasHeight = screenHeight - offsetTop;
 		const lineHeight = textHeight * leading;
+		const canvasHeight = screenHeight - offsetTop + lineHeight - textHeight;
 		const maxLines = Math.floor(canvasHeight / lineHeight);
 
 		if (maxLines !== this.maxLines) {
