@@ -35,6 +35,13 @@ export default defineContentScript({
 			ctx.strokeStyle = config.fontStrokeColor;
 			ctx.lineWidth = config.fontStrokeWidth;
 
+			commentStore.calculateMaxLines(
+				canvas.height,
+				config.commentOffsetTop,
+				config.fontSize,
+				config.commentLeading,
+			);
+
 			const now = Date.now();
 			for (const { id, timestamp, line, text } of commentStore.values) {
 				const delta =

@@ -104,4 +104,25 @@ export class CommentStore {
 	public remove(id: number) {
 		this.comments = this.comments.filter((comment) => comment.id !== id);
 	}
+
+	public calculateMaxLines(
+		screenHeight: number,
+		offsetTop: number,
+		textHeight: number,
+		leading: number,
+	): number {
+		const canvasHeight = screenHeight - offsetTop;
+		const lineHeight = textHeight * leading;
+		const maxLines = Math.floor(canvasHeight / lineHeight);
+
+		if (maxLines !== this.maxLines) {
+			this.maxLines = maxLines;
+			this.comments = this.comments.map((comment) => ({
+				...comment,
+				line: comment.line % maxLines,
+			}));
+		}
+
+		return maxLines;
+	}
 }
