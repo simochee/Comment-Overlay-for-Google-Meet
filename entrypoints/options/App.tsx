@@ -26,6 +26,10 @@ export const App = () => {
 
 	const changed = isDeepEqual(values, initialValues);
 
+	const reset = () => {
+		setValues(initialConfig);
+	};
+
 	const handleSubmit = async (values: ConfigSchema) => {
 		setPending(true);
 		try {
@@ -50,6 +54,7 @@ export const App = () => {
 	return (
 		<VarUI values={values} onChange={setValues}>
 			<VarButton
+				className="sticky-top"
 				buttonLabel={
 					pending ? "Saving..." : changed ? "No Changes" : "Save Config"
 				}
@@ -88,6 +93,9 @@ export const App = () => {
 					label="Leading"
 					options={COMMENT_LEADING_OPTIONS}
 				/>
+			</VarCategory>
+			<VarCategory label="Danger Zone" collapsible>
+				<VarButton buttonLabel="Reset Config" onClick={reset} />
 			</VarCategory>
 		</VarUI>
 	);
