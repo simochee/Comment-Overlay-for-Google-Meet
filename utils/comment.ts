@@ -89,7 +89,7 @@ export class CommentStore {
 		)
 			.map((timestamp, line) => ({ timestamp, line }))
 			.toSorted((a, b) => b.timestamp - a.timestamp);
-		const id = Math.max(0, ...this.comments.map(({ id }) => id)) + 1;
+		const id = Math.max(-1, ...this.comments.map(({ id }) => id)) + 1;
 
 		for (const { line, timestamp } of linesTimestamp) {
 			if (now - timestamp > 1_200) {
